@@ -1,0 +1,7 @@
+{
+    "delay": "500",
+    "verbose": true,
+    "exec": "ts-node src/index.ts",
+    "watch": ["src"],
+    "ext": "ts"
+}

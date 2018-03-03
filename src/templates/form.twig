@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <title>Prosody Registration Form</title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.14/dist/semantic.min.css"
+        integrity="sha256-FpjP45Pz019159CFCReBCsZtVeCvGawN2Om1w+SIi0A="
+        crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+<div class="ui raised very padded text container segment">
+    <h1 class="ui dividing header">Register an xmpp account</h1>
+    <form class="ui form{% if errorMap.hasErrors %} error{% endif %}" method="POST" action="/">
+        {% if errorMap.hasErrors %}
+        <div class="ui error message">
+            <div class="header">Validation Errors</div>
+            <p>We detected some errors with your entry:</p>
+            <ul>
+                {% for errors in Object.values(errorMap) %}
+                {% for error in errors %}
+                {% for constraint in Object.keys(error.constraints) %}
+                <li>{{ constraint }}</li>
+                {% endfor %}
+                {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    <div class="field{% if Array.isArray(errors['username']) %} error{% endif %}">
+        <label>Username</label>
+        <input name="username" type="text" value="{{ form.username }}">
+    </div>
+    <div class="field{% if Array.isArray(errors['server']) %} error{% endif %}">
+        <label>Server</label>
+        <select name="server" class="ui dropdown">
+            <option value="">Select a service</option>
+            {% for server in servers %}
+            <option {% if form.server == server %}selected {% endif %}value="{{ server }}">{{ server }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field{% if Array.isArray(errors['email']) %} error{% endif %}">
+        <label>E-Mail</label>
+        <input name="email" type="text" value="{{ form.email }}">
+    </div>
+    <div class="field{% if Array.isArray(errors['password']) %} error{% endif %}">
+        <label>Password</label>
+        <input name="password" type="password" value="{{ form.password }}">
+    </div>
+    <div class="field{% if Array.isArray(errors['passwordConfirmation']) %} error{% endif %}">
+        <label>Confirm Password</label>
+        <input name="passwordConfirmation" type="password" value="{{ form.passwordConfirmation }}">
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+    </form>
+    </div>
+</body>
+</html>

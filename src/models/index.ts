@@ -1,0 +1,3 @@
+export {
+
+} from './registration.model';
