@@ -8,7 +8,11 @@ import {
     RegistrationController,
 } from './controller';
 
-const app = createExpressServer({
+import {
+    Application,
+} from 'express';
+
+const app: Application = createExpressServer({
 
     controllers: [
         RegistrationController,
@@ -17,4 +21,6 @@ const app = createExpressServer({
     development: true,
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+    console.log('Serving on http://localhost:3000');
+});
