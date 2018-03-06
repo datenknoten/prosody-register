@@ -1,0 +1,9 @@
+.password-strength {
+    &.hidden, .hidden {
+        display: none;
+    }
+
+    .progress:first-child {
+        margin-bottom: 0.5em;
+    }
+}

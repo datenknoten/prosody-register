@@ -8,16 +8,23 @@
         href="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.14/dist/semantic.min.css"
         integrity="sha256-FpjP45Pz019159CFCReBCsZtVeCvGawN2Om1w+SIi0A="
         crossorigin="anonymous">
+    <link
+        rel="stylesheet"
+        href="/styles.css" />
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
     <script
         defer
         src="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.14/dist/semantic.min.js"
         integrity="sha256-M9jjNz+jr/lTI+xVx2lpn3g6810YEPpSk8lReqH+qWE="
         crossorigin="anonymous"></script>
     <script
-        defer
-        src="https://cdn.jsdelivr.net/npm/zxcvbn@4.4.2/dist/zxcvbn.js"
-        integrity="sha256-9CxlH0BQastrZiSQ8zjdR6WVHTMSA5xKuP5QkEhPNRo="
-        crossorigin="anonymous"></script>
+        src="/vendor.js"></script>
+    <script
+        src="/main.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
@@ -59,9 +66,12 @@
     <div class="field{% if Array.isArray(errors['password']) %} error{% endif %}">
         <label>Password</label>
         <input name="password" type="password" value="{{ form.password }}">
-        <div class="ui tiny hidden progress">
-            <div class="bar"></div>
-            <div class="label">None Existant</div>
+        <div class="password-strength hidden">
+            <div class="ui tiny progress" data-value="0" data-total="4">
+                <div class="bar"></div>
+            </div>
+            <p class="hidden warning"></p>
+            <ul class="hidden suggestions"></ul>
         </div>
     </div>
     <div class="field{% if Array.isArray(errors['passwordConfirmation']) %} error{% endif %}">

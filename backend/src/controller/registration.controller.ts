@@ -8,13 +8,18 @@ import {
     Req,
     Res,
     UseBefore,
+    ContentType,
+    BodyParam,
 } from 'routing-controllers';
 
 import * as util from 'util';
 
 import * as path from 'path';
 
-const Twig = require('twig');
+import * as zxcvbn from 'zxcvbn';
+
+const template = require('../templates/form.twig').template;
+
 const bodyParser = require('body-parser');
 
 import {
@@ -30,16 +35,16 @@ import {
     validate,
 } from 'class-validator';
 
-async function renderTemplateFile(templateFile: string, params: any = {}) {
-    return new Promise((resolve, reject) => {
-        Twig.renderFile(templateFile, params, (err: Error, result: string) => {
-            if (err) {
-                return reject(err);
-            }
-            resolve(result);
-        });
-    });
-}
+// async function renderTemplateFile(templateFile: string, params: any = {}) {
+//     return new Promise((resolve, reject) => {
+//         Twig.renderFile(templateFile, params, (err: Error, result: string) => {
+//             if (err) {
+//                 return reject(err);
+//             }
+//             resolve(result);
+//         });
+//     });
+// }
 
 @Controller()
 export class RegistrationController {
@@ -48,7 +53,7 @@ export class RegistrationController {
     public async displayForm() {
         const templateFile = path.resolve(__dirname, '../templates/form.twig');
 
-        return renderTemplateFile(templateFile, {
+        return template.render({
             servers: Registration.servers,
         });
     }
@@ -62,8 +67,6 @@ export class RegistrationController {
         const errors = await validate(form);
 
         if (errors.length > 0) {
-            const templateFile = path.resolve(__dirname, '../templates/form.twig');
-
             const errorMap: any = {};
 
             for (const error of errors) {
@@ -77,7 +80,7 @@ export class RegistrationController {
 
             console.dir(errorMap);
 
-            return renderTemplateFile(templateFile, {
+            return template.render({
                 errorMap,
                 form,
                 servers: Registration.servers,
@@ -85,5 +88,11 @@ export class RegistrationController {
         } else {
             response.redirect('/');
         }
+    }
+
+    @Post('/password/strength')
+    @ContentType('application/json')
+    public async passwordStreng(@BodyParam('password') password: string) {
+        return zxcvbn.default(password);
     }
 }

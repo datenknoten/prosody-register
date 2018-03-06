@@ -10,7 +10,10 @@ import {
 
 import {
     Application,
+    static as staticFiles,
 } from 'express';
+
+import * as path from 'path';
 
 const app: Application = createExpressServer({
 
@@ -20,6 +23,8 @@ const app: Application = createExpressServer({
     defaultErrorHandler: false,
     development: true,
 });
+
+app.use(staticFiles(path.resolve(__dirname, 'assets')));
 
 app.listen(3000, () => {
     console.log('Serving on http://localhost:3000');
