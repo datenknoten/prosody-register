@@ -6,4 +6,14 @@
     .progress:first-child {
         margin-bottom: 0.5em;
     }
+
+    .suggestions {
+        padding-left: 0;
+        list-style-type: none;
+        margin-bottom: 0;
+
+        li {
+            margin-bottom: 1em;
+        }
+    }
 }
