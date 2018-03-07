@@ -61,7 +61,9 @@ export class RegistrationController {
     @Post('/')
     @UseBefore(bodyParser.urlencoded())
     public async registerUser(
-        @Body() form: Registration,
+        @Body({
+            validate: false,
+        }) form: Registration,
         @Res() response: Response,
     ) {
         const errors = await validate(form);
