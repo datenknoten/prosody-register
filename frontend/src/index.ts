@@ -81,9 +81,12 @@ async function OnPasswordInput(this: HTMLInputElement, ev: Event) {
 
     const progress = document.querySelector('.password-strength .progress');
     if (progress) {
-        const $progress = $(progress) as any;
+        const bar = progress.children[0];
 
-        $progress.progress('set progress', data.score);
+        if (bar) {
+            const width = ((data.score + 1) / 5) * 100;
+            bar.setAttribute('style', `width: ${width}%;`);
+        }
 
         progress.classList.remove('red', 'yellow', 'green');
 
@@ -109,13 +112,6 @@ async function OnPasswordInput(this: HTMLInputElement, ev: Event) {
 const OnPasswordInputDebounced = debounce(OnPasswordInput, 500);
 
 function onReady() {
-    const progress = document.querySelector<HTMLDivElement>('.password-strength .progress');
-
-    if (progress) {
-        const $progress = $(progress) as any;
-        $progress.progress();
-    }
-
     const passwordBox = document.querySelector<HTMLInputElement>('input[name="password"]');
 
     if (passwordBox) {
