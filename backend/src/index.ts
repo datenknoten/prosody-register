@@ -42,12 +42,14 @@ export let globalConfig: Config;
 
         const configContents = await fs.readFile(configPath, 'utf-8');
 
-        globalConfig = plainToClass(Config, JSON.parse(configContents) as Object);
+        globalConfig = plainToClass(Config, JSON.parse(configContents) as object);
 
         const results = await validate(globalConfig);
 
         if (results.length > 0) {
+            // tslint:disable-next-line: no-console
             console.error('Your config is invalid, please fix it');
+            // tslint:disable-next-line: no-console
             console.error(results);
             process.exit(-1);
         }
@@ -70,11 +72,8 @@ export let globalConfig: Config;
             console.log('Serving on http://localhost:3000');
         });
     } catch (error) {
+        // tslint:disable-next-line: no-console
         console.error(error);
         process.exit(-1);
     }
 })();
-
-
-
-

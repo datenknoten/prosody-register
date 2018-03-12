@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "debug": "nodemon"
+    "debug": "nodemon",
+    "lint": "tslint -p tsconfig.json"
   },
   "repository": {
     "type": "git",

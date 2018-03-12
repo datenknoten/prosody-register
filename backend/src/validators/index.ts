@@ -1,3 +1,3 @@
 export {
     CustomEmail,
-} from './custom-email.validator'
+} from './custom-email.validator';

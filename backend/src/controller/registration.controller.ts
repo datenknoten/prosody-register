@@ -18,8 +18,10 @@ import * as path from 'path';
 
 import * as zxcvbn from 'zxcvbn';
 
+// tslint:disable-next-line: no-var-requires
 const template = require('../templates/form.twig').template;
 
+// tslint:disable-next-line: no-var-requires
 const bodyParser = require('body-parser');
 
 import * as superagent from 'superagent';
@@ -38,9 +40,15 @@ import {
 } from 'class-validator';
 import { globalConfig } from '..';
 
+/**
+ * Class for the Registration Controller
+ */
 @Controller()
 export class RegistrationController {
 
+    /**
+     * Just display the form
+     */
     @Get('/')
     public async displayForm() {
         const templateFile = path.resolve(__dirname, '../templates/form.twig');
@@ -50,6 +58,12 @@ export class RegistrationController {
         });
     }
 
+    /**
+     * Submit the form
+     *
+     * @param form The registration data from the form
+     * @param response The HTTP-Response, is needed for redirections
+     */
     @Post('/')
     @UseBefore(bodyParser.urlencoded())
     public async registerUser(
@@ -111,6 +125,11 @@ export class RegistrationController {
         }
     }
 
+    /**
+     * JSON-API for zxcvbn so it does not need to be bundled
+     *
+     * @param password The password to be checked
+     */
     @Post('/password/strength')
     @ContentType('application/json')
     public async passwordStreng(@BodyParam('password') password: string) {
