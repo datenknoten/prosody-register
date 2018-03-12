@@ -15,6 +15,7 @@
         src="/vendor.js"></script>
     <script
         src="/main.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
@@ -67,6 +68,9 @@
     <div class="field{% if Array.isArray(errors['passwordConfirmation']) %} error{% endif %}">
         <label>Confirm Password</label>
         <input name="passwordConfirmation" type="password" value="{{ form.passwordConfirmation }}">
+    </div>
+    <div class="field">
+        <div class="g-recaptcha" data-sitekey="{{ config.RecaptchaSiteKey }}"></div>
     </div>
     <button class="ui button" type="submit">Submit</button>
     </form>

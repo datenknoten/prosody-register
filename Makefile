@@ -17,4 +17,4 @@ frontend:
 	cp frontend/dist/* dist/assets
 
 run: dist
-	cd dist && node .
+	cd dist && node . ../config.json

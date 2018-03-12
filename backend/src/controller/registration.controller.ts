@@ -1,5 +1,7 @@
 import {
     Body,
+    BodyParam,
+    ContentType,
     Controller,
     Get,
     Param,
@@ -8,8 +10,6 @@ import {
     Req,
     Res,
     UseBefore,
-    ContentType,
-    BodyParam,
 } from 'routing-controllers';
 
 import * as util from 'util';
@@ -21,6 +21,8 @@ import * as zxcvbn from 'zxcvbn';
 const template = require('../templates/form.twig').template;
 
 const bodyParser = require('body-parser');
+
+import * as superagent from 'superagent';
 
 import {
     Request,
@@ -34,17 +36,7 @@ import {
 import {
     validate,
 } from 'class-validator';
-
-// async function renderTemplateFile(templateFile: string, params: any = {}) {
-//     return new Promise((resolve, reject) => {
-//         Twig.renderFile(templateFile, params, (err: Error, result: string) => {
-//             if (err) {
-//                 return reject(err);
-//             }
-//             resolve(result);
-//         });
-//     });
-// }
+import { globalConfig } from '..';
 
 @Controller()
 export class RegistrationController {
@@ -54,7 +46,7 @@ export class RegistrationController {
         const templateFile = path.resolve(__dirname, '../templates/form.twig');
 
         return template.render({
-            servers: Registration.servers,
+            config: globalConfig,
         });
     }
 
@@ -80,15 +72,42 @@ export class RegistrationController {
 
             errorMap.hasErrors = true;
 
-            console.dir(errorMap);
-
             return template.render({
+                config: globalConfig,
                 errorMap,
                 form,
-                servers: Registration.servers,
             });
         } else {
-            response.redirect('/');
+            // The user passed all validation, lets check the captcha
+            const requestData = {
+                response: form.captchaResponse,
+                secret: globalConfig.RecaptchaSecretKey,
+            };
+
+            const captchaResponse = await superagent
+                .post('https://www.google.com/recaptcha/api/siteverify')
+                .type('form')
+                .send(requestData);
+
+            if (captchaResponse.body && (captchaResponse.body.success === true)) {
+                return response.redirect('/');
+            } else {
+                const errorMap: any = {};
+
+                errorMap.hasErrors = true;
+                errorMap.captcha = [{
+                    constraints: {
+                        message: 'Capcha is missing or invalid',
+                    },
+                }];
+
+                return template.render({
+                    config: globalConfig,
+                    errorMap,
+                    form,
+                });
+            }
+
         }
     }
 
