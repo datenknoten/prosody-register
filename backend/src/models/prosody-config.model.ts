@@ -10,19 +10,19 @@ export class ProsodyConfig {
      * Adminuser which is used for connecting
      */
     @IsString()
-    public User?: string;
+    public User!: string;
 
     /**
      * Password for the user used for connecting
      */
     @IsString()
-    public Password?: string;
+    public Password!: string;
 
     /**
      * The Base-Path of the prosody rest api
      */
     @IsString()
     @IsUrl()
-    public RestURL?: string;
+    public RestURL!: string;
 
 }

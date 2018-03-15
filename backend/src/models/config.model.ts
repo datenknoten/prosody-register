@@ -1,6 +1,7 @@
 import {
     ArrayMinSize,
     IsFQDN,
+    IsOptional,
     IsString,
     IsUrl,
     MaxLength,
@@ -16,6 +17,10 @@ import {
     ProsodyConfig,
 } from './prosody-config.model';
 
+import * as path from 'path';
+
+import * as nm from 'nodemailer';
+
 /**
  * A configuration for the application
  */
@@ -26,7 +31,7 @@ export class Config {
     @IsString()
     @MinLength(40)
     @MaxLength(40)
-    public RecaptchaSiteKey?: string;
+    public RecaptchaSiteKey!: string;
 
     /**
      * The secret key of recapchta
@@ -34,14 +39,14 @@ export class Config {
     @IsString()
     @MinLength(40)
     @MaxLength(40)
-    public RecaptchaSecretKey?: string;
+    public RecaptchaSecretKey!: string;
 
     /**
      * The URL the application is hosted under
      */
     @IsString()
     @IsUrl()
-    public Url?: string;
+    public Url!: string;
 
     /**
      * The hosts the user can register
@@ -61,12 +66,24 @@ export class Config {
      * E-Mail-Address used for sending the verification mail
      */
     @IsString()
-    public MailSender?: string;
+    public MailSender!: string;
+
+    /**
+     * Path where the registration data is stored
+     */
+    @IsString()
+    @IsOptional()
+    public DataDir: string = path.resolve(__dirname, '../data');
 
     /**
      * Config of the prosody server
      */
     @ValidateNested()
     @Type(() => ProsodyConfig)
-    public ProsodyConfig?: ProsodyConfig;
+    public ProsodyConfig!: ProsodyConfig;
+
+    /**
+     * Settings for nodemailer
+     */
+    public MailSettings!: any;
 }

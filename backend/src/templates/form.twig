@@ -45,7 +45,7 @@
         <label>Server</label>
         <select name="server" class="ui dropdown">
             <option value="">Select a service</option>
-            {% for server in servers %}
+            {% for server in config.Hosts %}
             <option {% if form.server == server %}selected {% endif %}value="{{ server }}">{{ server }}</option>
             {% endfor %}
         </select>

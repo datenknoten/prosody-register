@@ -26,6 +26,8 @@
     "@types/zxcvbn": "4.4.0",
     "@types/superagent": "3.5.7",
     "@types/fs-extra": "5.0.1",
+    "@types/nodemailer": "4.6.0",
+    "@types/uuid": "3.4.3",
     "ts-node": "^5.0.1",
     "typescript": "^2.7.2",
     "tslint-language-service": "0.9.8",
@@ -44,6 +46,8 @@
     "twig": "1.10.5",
     "zxcvbn": "4.4.2",
     "superagent": "3.8.2",
-    "fs-extra": "5.0.0"
+    "fs-extra": "5.0.0",
+    "nodemailer": "4.6.3",
+    "uuid": "3.2.1"
   }
 }
