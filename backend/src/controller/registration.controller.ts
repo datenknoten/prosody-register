@@ -258,7 +258,7 @@ export class RegistrationController {
 
         const transport = nm.createTransport(globalConfig.MailSettings);
 
-        const url = `${globalConfig.Url}${id}`;
+        const url = `${globalConfig.Url}/verify/${id}`;
 
         const message = {
             from: globalConfig.MailSender,
