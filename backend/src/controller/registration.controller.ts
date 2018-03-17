@@ -139,7 +139,7 @@ export class RegistrationController {
             } else {
                 await this.sendMail(form);
 
-                return response.redirect(`${globalConfig.Url}?verify=true`);
+                return response.redirect(`${globalConfig.Path}?verify=true`);
             }
 
         }
