@@ -6,6 +6,7 @@ import {
     Get,
     Param,
     Post,
+    QueryParam,
     Redirect,
     Req,
     Res,
@@ -62,7 +63,7 @@ export class RegistrationController {
      * Just display the form
      */
     @Get('/')
-    public async displayForm(@Param('verify') verify: boolean = false) {
+    public async displayForm(@QueryParam('verify') verify: boolean = false) {
         const templateFile = path.resolve(__dirname, '../templates/form.twig');
 
         return formTemplate.render({
