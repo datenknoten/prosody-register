@@ -22,13 +22,13 @@
 <body>
 <div class="ui raised very padded text container segment">
     <h1 class="ui dividing header">Register an xmpp account</h1>
+    {% if verify %}
+    <div class="ui success message">
+        <div class="header">We sent you a mail!</div>
+        <p>We sent you an e-mail to the address you specified. Please follow the link and verify that you own the given e-mail.</p>
+    </div>
+    {% endif %}
     <form class="ui form{% if errorMap.hasErrors %} error{% endif %}" method="POST" action="">
-        {% if verify %}
-        <div class="ui success message">
-            <div class="header">We sent you a mail!</div>
-            <p>We sent you an e-mail to the address you specified. Please follow the link and verify that you own the given e-mail.</p>
-        </div>
-        {% endif %}
         {% if errorMap.hasErrors %}
         <div class="ui error message">
             <div class="header">Validation Errors</div>
