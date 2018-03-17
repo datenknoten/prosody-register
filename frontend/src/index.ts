@@ -67,7 +67,7 @@ async function OnPasswordInput(this: HTMLInputElement, ev: Event) {
             element.classList.remove('hidden');
         }
     }
-    const response = await fetch('/password/strength', {
+    const response = await fetch('password/strength', {
         method: 'POST',
         body: JSON.stringify({
             password,

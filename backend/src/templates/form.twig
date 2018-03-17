@@ -11,18 +11,18 @@
         crossorigin="anonymous">
     <link
         rel="stylesheet"
-        href="/styles.css" />
+        href="styles.css" />
     <script
-        src="/vendor.js"></script>
+        src="vendor.js"></script>
     <script
-        src="/main.js"></script>
+        src="main.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
 <div class="ui raised very padded text container segment">
     <h1 class="ui dividing header">Register an xmpp account</h1>
-    <form class="ui form{% if errorMap.hasErrors %} error{% endif %}" method="POST" action="/">
+    <form class="ui form{% if errorMap.hasErrors %} error{% endif %}" method="POST" action="">
         {% if errorMap.hasErrors %}
         <div class="ui error message">
             <div class="header">Validation Errors</div>
