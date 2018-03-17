@@ -1,7 +1,9 @@
 import {
     ArrayMinSize,
     IsFQDN,
+    IsNumber,
     IsOptional,
+    IsPositive,
     IsString,
     IsUrl,
     MaxLength,
@@ -93,4 +95,11 @@ export class Config {
     @IsString()
     @MinLength(1)
     public Path: string = '/';
+
+    /**
+     * The port the service is listening on
+     */
+    @IsNumber()
+    @IsPositive()
+    public ListenPort: number = 3000;
 }

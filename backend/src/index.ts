@@ -67,9 +67,9 @@ export let globalConfig: Config;
 
         app.use(staticFiles(path.resolve(__dirname, 'assets')));
 
-        app.listen(3000, () => {
+        app.listen(globalConfig.ListenPort, 'localhost', () => {
             // tslint:disable-next-line: no-console
-            console.log('Serving on http://localhost:3000');
+            console.log(`Serving on http://localhost:${globalConfig.ListenPort}`);
         });
     } catch (error) {
         // tslint:disable-next-line: no-console
