@@ -86,4 +86,11 @@ export class Config {
      * Settings for nodemailer
      */
     public MailSettings!: any;
+
+    /**
+     * The path the form is hosted under
+     */
+    @IsString()
+    @MinLength(1)
+    public Path: string = '/';
 }
