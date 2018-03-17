@@ -62,11 +62,12 @@ export class RegistrationController {
      * Just display the form
      */
     @Get('/')
-    public async displayForm() {
+    public async displayForm(@Param('verify') verify: boolean = false) {
         const templateFile = path.resolve(__dirname, '../templates/form.twig');
 
         return formTemplate.render({
             config: globalConfig,
+            verify,
         });
     }
 
@@ -137,7 +138,7 @@ export class RegistrationController {
             } else {
                 await this.sendMail(form);
 
-                return response.redirect('/');
+                return response.redirect(`${globalConfig.Url}?verify=true`);
             }
 
         }
