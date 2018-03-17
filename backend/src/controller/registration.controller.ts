@@ -187,9 +187,7 @@ export class RegistrationController {
             .post(`${globalConfig.ProsodyConfig.RestURL}/user/${registration.username}`)
             .auth(globalConfig.ProsodyConfig.User, globalConfig.ProsodyConfig.Password)
             .ok((res) => res.status < 500)
-            .set({
-                Host: registration.server,
-            })
+            .set('Host', registration.server)
             .send({
                 password: registration.password,
             });
@@ -279,7 +277,8 @@ export class RegistrationController {
      */
     private async userIsTaken(registration: Registration): Promise<boolean> {
         const response = await superagent
-            .get(`${globalConfig.ProsodyConfig.RestURL}/user/${registration.username}@${registration.server}`)
+            .get(`${globalConfig.ProsodyConfig.RestURL}/user/${registration.username}`)
+            .set('Host', registration.server)
             .ok((res) => res.status < 500)
             .auth(globalConfig.ProsodyConfig.User, globalConfig.ProsodyConfig.Password);
         return response.status !== 404;

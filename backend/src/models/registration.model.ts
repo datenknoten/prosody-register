@@ -23,35 +23,35 @@ export class Registration {
     @IsString()
     @MinLength(3)
     @MaxLength(80)
-    public username?: string;
+    public username!: string;
 
     /**
      * The server the user wants an account on
      */
     @IsString()
     @IsIn(globalConfig.Hosts)
-    public server?: string;
+    public server!: string;
 
     /**
      * The email the user used for registration
      */
     @IsString()
     @Validate(CustomEmail)
-    public email?: string;
+    public email!: string;
 
     /**
      * The desired password the user wants to use
      */
     @IsString()
     @MinLength(3)
-    public password?: string;
+    public password!: string;
 
     /**
      * The confirmation of the password
      */
     @IsString()
     @MinLength(3)
-    public passwordConfirmation?: string;
+    public passwordConfirmation!: string;
 
     /**
      * The recaptcha response
@@ -60,5 +60,5 @@ export class Registration {
     @Expose({
         name: 'g-recaptcha-response',
     })
-    public captchaResponse?: string;
+    public captchaResponse!: string;
 }
