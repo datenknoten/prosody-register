@@ -28,6 +28,16 @@
         <p>We sent you an e-mail to the address you specified. Please follow the link and verify that you own the given e-mail.</p>
     </div>
     {% endif %}
+    <div class="ui message">
+        <p>With this form you can register an account on one of these services:</p>
+        <ul>
+            {% for server in config.Hosts %}
+            <li>{{ server }}</li>
+            {% endfor %}
+        </ul>
+        <p>If you want that I can send you a new password in case you forget yours, please add an account with your e-mail address and give it the nickname „RECOVERY_EMAIL“. Without this I can not verify your identity and can not send you an e-mail with a new password.</p>
+
+    </div>
     <form class="ui form{% if errorMap.hasErrors %} error{% endif %}" method="POST" action="">
         {% if errorMap.hasErrors %}
         <div class="ui error message">
