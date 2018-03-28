@@ -8,7 +8,10 @@ import {
     Validate,
 } from 'class-validator';
 
-import { CustomEmail } from '../validators';
+import {
+    CustomEmail,
+    IsSameAs,
+} from '../validators';
 
 import { Expose } from 'class-transformer';
 import { globalConfig } from '..';
@@ -44,6 +47,9 @@ export class Registration {
      */
     @IsString()
     @MinLength(3)
+    @IsSameAs('passwordConfirmation', {
+        message: 'Your passwords are not the same',
+    })
     public password!: string;
 
     /**
