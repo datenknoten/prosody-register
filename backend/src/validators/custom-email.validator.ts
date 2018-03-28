@@ -23,6 +23,10 @@ export class CustomEmail implements ValidatorConstraintInterface {
      * Return the default error message
      */
     public defaultMessage(args: ValidationArguments) {
-        return '$value is not a valid email';
+        if ((args.value && (args.value.lenth === 0)) || (!args.value)) {
+            return 'please specify a valid e-mail address';
+        } else {
+            return '$value is not a valid e-mail address';
+        }
     }
 }
