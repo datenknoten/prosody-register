@@ -9,6 +9,7 @@ backend:
 	cd backend && $(MAKE)
 	cp -R backend/dist .
 	cp -R backend/package.json dist
+	cp -R backend/src/locales dist
 	cd dist && npm install --production
 
 frontend:
@@ -18,3 +19,6 @@ frontend:
 
 run: dist
 	cd dist && node . ../config.json
+
+debug: dist
+	cd dist && node --inspect-brk . ../config.json
